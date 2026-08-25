@@ -1,0 +1,58 @@
+{
+  "name": "dsh-plugin-windows-guard",
+  "description": "DeepSeek Harness (dsh) Windows 环境防坑守则 skill 插件（纯数据）：GBK/BOM/UTF-16 编码坑、PowerShell 引号转义、长路径/文件占用/EACCES、进程与端口、CRLF、stderr 误判、乱码识别——预防性规则，无修复工具。纯技能载体，零运行时依赖，零构建。",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "skills",
+    "cordis.patch.yml",
+    "README.md",
+    "scripts"
+  ],
+  "scripts": {
+    "pack": "npm pack",
+    "selfcheck": "node scripts/selfcheck.mjs",
+    "smoke": "node scripts/selfcheck.mjs && node scripts/smoke-server.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek",
+    "harness",
+    "cordis",
+    "plugin",
+    "skill",
+    "windows",
+    "powershell",
+    "encoding",
+    "utf-8",
+    "gbk",
+    "bom"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Pasumao/dsh-plugin-windows-guard#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pasumao/dsh-plugin-windows-guard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pasumao/dsh-plugin-windows-guard/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+# dsh-plugin-windows-guard bundle patch: Windows 环境防坑守则 skill。
+#
+# 应用方式与 dev-kb/nonebot-kb 相同：作为一条 insert 覆盖 profile 根。
+# `name` 必须等于 package.json 的 `name`（loader 从 profile node_modules 按名解析）。
+# 无配置项（纯数据插件）；注册技能名 windows-guard（内容见 skills/windows-guard/SKILL.md）。
+- insert:
+    - id: dsh-plugin-windows-guard
+      name: dsh-plugin-windows-guard
