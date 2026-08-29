@@ -30,7 +30,11 @@ whenToUse: 读/写文本与配置文件、处理中文输出、命令引号转�
 | pwsh 7 写文件 | `Out-File -Encoding utf8`（5.1 下 = 带 BOM；7 下无 BOM） | `Out-File -Encoding utf8NoBOM`（仅 pwsh 7） |
 
 补充：
-- **查文件编码**（前 3 字节嗅探）：`Format-Hex -Path a.json -Count 3`——
+- **配套零 token 工具**（本插件注册，优先于手写嗅探/转换命令）：
+  `windows_encode_detect`（诊断 BOM/UTF-8/GBK/UTF-16 + 置信度）与
+  `windows_encode_fix`（转成 UTF-8 无 BOM，自动备份 `<path>.windowsguard.bak`，
+  支持 `dryRun`）。遇到乱码或 JSON/YAML 解析失败时，先 detect 后 fix，再复检。
+- **查文件编码**（无工具可用时的替代）：`Format-Hex -Path a.json -Count 3`——
   `EF BB BF` = UTF-8 BOM（解析器可能拒绝）；`FF FE` = UTF-16LE（必然炸 JSON）；
   无 BOM 且含 `FF FD` 替换符 = 文件本来就被写坏了。
 - **GBK→UTF-8 转换**（确证文件是 GBK 时，PowerShell 无直接 cmdlet，用 .NET）：
@@ -64,3 +68,6 @@ whenToUse: 读/写文本与配置文件、处理中文输出、命令引号转�
 1. **不猜**——乱码文本语义不可信，别试图「意思理解一下」继续用；
 2. **不引用**——不要把它当答案、文件名、配置值传给下游；
 3. **先重读**——回到源头（原文件原命令）按守则重新读/重新执行。
+
+附：pwsh 工具输出出现乱码时，本插件会自动在结果后追加 `[windows-guard]` 修复提示；
+文件类乱码直接走 `windows_encode_detect` / `windows_encode_fix` 工具链。

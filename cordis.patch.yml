@@ -1,8 +1,18 @@
-# dsh-plugin-windows-guard bundle patch: Windows 环境防坑守则 skill。
+# dsh-plugin-windows-guard bundle patch: Windows 环境防坑守则 + 主动防护。
 #
 # 应用方式与 dev-kb/nonebot-kb 相同：作为一条 insert 覆盖 profile 根。
 # `name` 必须等于 package.json 的 `name`（loader 从 profile node_modules 按名解析）。
-# 无配置项（纯数据插件）；注册技能名 windows-guard（内容见 skills/windows-guard/SKILL.md）。
+#
+# 配置项（均可省略使用默认；0.2.0 起自 dsh-plugin-pwsh-guard 合并主动防护层）：
+#   enabled: true     # 总开关（false = 只保留守则技能）
+#   postCheck: true   # L2 pwsh 工具结果乱码检测+修复提示
+#   preCheck: true    # L3 危险写命令拦截
+#   detectTools: true # L4 windows_encode_detect / windows_encode_fix 工具
 - insert:
     - id: dsh-plugin-windows-guard
       name: dsh-plugin-windows-guard
+      config:
+        enabled: true
+        postCheck: true
+        preCheck: true
+        detectTools: true

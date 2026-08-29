@@ -1,7 +1,7 @@
 {
   "name": "dsh-plugin-windows-guard",
-  "description": "DeepSeek Harness (dsh) Windows 环境防坑守则 skill 插件（纯数据）：GBK/BOM/UTF-16 编码坑、PowerShell 引号转义、长路径/文件占用/EACCES、进程与端口、CRLF、stderr 误判、乱码识别——预防性规则，无修复工具。纯技能载体，零运行时依赖，零构建。",
-  "version": "0.1.0",
+  "description": "DeepSeek Harness (dsh) Windows 环境防坑插件：两个防坑 skill（windows-enc/windows-sys：编码/转义/路径/进程/乱码预防规则）+ 三层主动防护（pwsh 结果乱码检测提示、危险写命令拦截、windows_encode_detect/fix 编码诊断修复工具）。零运行时依赖，零构建。",
+  "version": "0.2.0",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -13,6 +13,7 @@
     "skills",
     "cordis.patch.yml",
     "README.md",
+    "CHANGELOG.md",
     "scripts"
   ],
   "scripts": {
@@ -34,6 +35,8 @@
     "cordis",
     "plugin",
     "skill",
+    "tools",
+    "guard",
     "windows",
     "powershell",
     "encoding",
