@@ -1,8 +1,7 @@
 # dsh-plugin-windows-guard
 
-DeepSeek Harness (dsh) 的 **Windows 环境防坑插件**：守则（skill）+ 主动防护（hooks/工具）。
-
-把本机 255 个会话归档里反复出现的 Windows 高频坑，沉淀成两层能力：
+DeepSeek Harness (dsh) 的 **Windows 环境防坑插件**——**源自 255 个真实会话归档的
+高频踩坑**，守则（skill）+ 主动防护（hooks/工具）两层能力：
 
 - **守则层**（0.1.0 起）：两个自包含 skill 按场景自动加载——「一次写对」的预防性守则；
 - **主动防护层**（0.2.0 起，自 `dsh-plugin-pwsh-guard` 合并，该插件已删除）：
@@ -62,20 +61,37 @@ DeepSeek Harness (dsh) 的 **Windows 环境防坑插件**：守则（skill）+ �
 ## 安装
 
 ```powershell
-# 本地 link 开发（本仓库）：
-git clone https://github.com/Pasumao/dsh-plugin-windows-guard.git D:\dsh\plugins\dsh-plugin-windows-guard
-#   1. profile package.json dependencies 加
-#      "dsh-plugin-windows-guard": "link:D:/dsh/plugins/dsh-plugin-windows-guard"
-#   2. 加入 dsh.profile.bundles（或 cordis.patch.yml 手动 insert）
-cd C:\Users\18303\.dsh\profiles\web
-pnpm install
-node D:\dsh\scripts\check-profile.mjs          # 自检 [PASS] 再重启
-powershell -NoProfile -ExecutionPolicy Bypass -File D:\dsh\scripts\restart-dsh.ps1
-
-# npm 分发安装（发布后）：
-npm install dsh-plugin-windows-guard --prefix C:\Users\18303\.dsh\profiles\web
-# 并在 profile 包/补丁中挂载，其余同上
+# npm（推荐）
+dsh plugin --profile web add dsh-plugin-windows-guard
+# 或 GitHub
+dsh plugin --profile web add github:Pasumao/dsh-plugin-windows-guard
 ```
+
+装完重启 `dsh web` 即生效。包自带 `cordis.patch.yml` 挂载行，自动应用，
+无需手动改配置；配置开关见「配置」节。
+
+源码安装（本地开发 / 调试）：
+
+```bash
+git clone https://github.com/Pasumao/dsh-plugin-windows-guard.git
+cd dsh-plugin-windows-guard          # 目录放在任意位置（如你的插件收集目录）
+npm install
+# 以 link: 依赖挂载进 profile：
+#   profile 的 package.json dependencies 加
+#   "dsh-plugin-windows-guard": "link:<你的插件目录>/dsh-plugin-windows-guard"
+#   并加入 dsh.profile.bundles（或 cordis.patch.yml 手动 insert）
+# 之后 pnpm install + 重启 dsh web
+```
+
+## 装完你会看到什么
+
+- `pwsh` 工具输出出现乱码（`鈥?`/`鎻掍欢`/`锟斤拷`）时，结果末尾自动附加
+  `[windows-guard]` 修复提示；
+- 不带 `-Encoding` 的 `Set-Content`/`Add-Content`/`Out-File` 写 JSON/YAML/TOML
+  等危险写命令被直接拦截（deny），并附 `[System.IO.File]::WriteAllText(...)`
+  正确写法；
+- 工具列表多出 `windows_encode_detect` / `windows_encode_fix`（编码诊断与修复）；
+- 技能目录多出 `windows-enc` / `windows-sys` 两个防坑守则技能。
 
 ## 使用
 

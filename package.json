@@ -42,7 +42,12 @@
     "encoding",
     "utf-8",
     "gbk",
-    "bom"
+    "bom",
+    "mojibake",
+    "garbled-text",
+    "powershell-guard",
+    "write-guard",
+    "hook"
   ],
   "license": "MIT",
   "homepage": "https://github.com/Pasumao/dsh-plugin-windows-guard#readme",
