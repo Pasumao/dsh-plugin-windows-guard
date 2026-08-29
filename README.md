@@ -1,5 +1,11 @@
 # dsh-plugin-windows-guard
 
+![npm version](https://img.shields.io/npm/v/dsh-plugin-windows-guard)
+![License](https://img.shields.io/github/license/Pasumao/dsh-plugin-windows-guard)
+![AI Assisted](https://img.shields.io/badge/AI-Assisted-8A2BE2)
+
+[**中文**](./README.md) | [English](./README.en.md)
+
 DeepSeek Harness (dsh) 的 **Windows 环境防坑插件**——**源自 255 个真实会话归档的
 高频踩坑**，守则（skill）+ 主动防护（hooks/工具）两层能力：
 
