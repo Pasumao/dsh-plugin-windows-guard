@@ -1,6 +1,16 @@
-[中文](./README.md) | **English**
+<p align="center">
+  <img src="docs/banner.svg" alt="dsh-plugin-windows-guard banner" width="100%">
+</p>
 
 # dsh-plugin-windows-guard
+
+![npm version](https://img.shields.io/npm/v/dsh-plugin-windows-guard)
+![npm downloads](https://img.shields.io/npm/dm/dsh-plugin-windows-guard)
+![License](https://img.shields.io/github/license/Pasumao/dsh-plugin-windows-guard)
+![Stars](https://img.shields.io/github/stars/Pasumao/dsh-plugin-windows-guard?style=social)
+![AI Assisted](https://img.shields.io/badge/AI-Assisted-8A2BE2)
+
+[中文](./README.md) | **English**
 
 The DeepSeek Harness (dsh) **Windows pitfall-guard plugin** — **high-frequency
 pitfalls distilled from 255 real session archives**, with two capability
@@ -167,12 +177,29 @@ Model: first windows_encode_detect on config.json → "utf-8-bom (confidence hig
 
 ## Related plugins
 
-Published plugins cross-referencing each other (more of the DSH plugin
-ecosystem):
+This plugin is part of **Pasumao's dsh plugin ecosystem**. Published plugins
+that work well together:
 
-- [dsh-plugin-workbench](https://www.npmjs.com/package/dsh-plugin-workbench) — VS Code-style workspace file explorer + editable preview
-- [dsh-notify](https://www.npmjs.com/package/dsh-notify) — native Windows notification when the agent stops/errors + tray icon
-- [dsh-plugin-image-tools](https://www.npmjs.com/package/dsh-plugin-image-tools) — image choice cards / inline reply images / chat image zoom
-- [dsh-plugin-dev-kb](https://www.npmjs.com/package/dsh-plugin-dev-kb) — full Markdown mirror of the official dsh docs (plugin development knowledge base)
-- [dsh-plugin-choice-refresh](https://www.npmjs.com/package/dsh-plugin-choice-refresh) — "regenerate options" / "more options" on choice cards
-- [dsh-plugin-table-zoom](https://www.npmjs.com/package/dsh-plugin-table-zoom) — floating table viewer in chat + one-click Markdown copy
+| Plugin (npm) | GitHub | Description |
+|---|---|---|
+| [dsh-notify](https://www.npmjs.com/package/dsh-notify) | [GitHub](https://github.com/Pasumao/dsh-plugin-notify) | Native Windows notifications + system tray |
+| [dsh-plugin-choice-refresh](https://www.npmjs.com/package/dsh-plugin-choice-refresh) | [GitHub](https://github.com/Pasumao/dsh-plugin-choice-refresh) | Choice enhancements: regenerate / more options |
+| [dsh-plugin-dev-kb](https://www.npmjs.com/package/dsh-plugin-dev-kb) | [GitHub](https://github.com/Pasumao/dsh-plugin-dev-kb) | Plugin development knowledge base (full official docs mirror + skills) |
+| [dsh-plugin-image-tools](https://www.npmjs.com/package/dsh-plugin-image-tools) | [GitHub](https://github.com/Pasumao/dsh-plugin-image-tools) | Image choice cards + inline reply images + blind-model image intake |
+| [dsh-plugin-table-zoom](https://www.npmjs.com/package/dsh-plugin-table-zoom) | [GitHub](https://github.com/Pasumao/dsh-plugin-table-zoom) | Floating viewer for long chat tables + one-click Markdown copy |
+| [dsh-plugin-workbench](https://www.npmjs.com/package/dsh-plugin-workbench) | [GitHub](https://github.com/Pasumao/dsh-plugin-workbench) | VS Code-style file explorer + editable preview |
+| [dsh-plugin-context-trim](https://www.npmjs.com/package/dsh-plugin-context-trim) | [GitHub repo](https://github.com/Pasumao/dsh-plugin-context-trim) | Per-session injection gate: trim skills / tools / prompt sections per session |
+
+> For the rest of the series see [Pasumao · dsh plugins](https://github.com/Pasumao) —
+> a ⭐ on GitHub is always appreciated.
+
+## AI-generated disclosure
+
+Part of the code and documentation was AI-assisted (DeepSeek Harness), all
+human-reviewed and verified against real sessions (the mojibake word list was
+validated on historical sessions, 11/12 positives/negatives; L3 interception
+rules were hand-checked one by one).
+
+## License
+
+[MIT](./LICENSE)
