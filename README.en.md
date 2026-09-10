@@ -55,8 +55,8 @@ matches):
 | Layer | Mechanism | Effect |
 |---|---|---|
 | L2 | `tools/post-execute` listener | when a `pwsh` tool result shows GBK misdecoding / an FFFD flood / Chinese turned into question marks, automatically appends a `[windows-guard]` fix hint after the result (no interruption, the result body is never rewritten) |
-| L3 | `tools/pre-execute` listener | intercepts commands that write JSON/YAML/TOML/GD via `Set-Content`/`Add-Content`/`Out-File` without `-Encoding`, and `>` redirection into structured files; denies them and offers the correct `[System.IO.File]::WriteAllText(...)` form |
-| L4 | `windows_encode_detect` / `windows_encode_fix` tools | file encoding diagnosis (BOM/UTF-8/GBK/UTF-16 + confidence) and repair (→ UTF-8 without BOM, automatic `.windowsguard.bak` backup); `dryRun` diagnoses without writing |
+| L3 | `tools/pre-execute` listener | intercepts commands that write JSON/YAML/TOML via `Set-Content`/`Add-Content`/`Out-File` without `-Encoding`, and `>` redirection into structured files (including mid-command `> file.json` anchor positions); denies them and offers the correct `[System.IO.File]::WriteAllText(...)` form |
+| L4 | `windows_encode_detect` / `windows_encode_fix` tools | file encoding diagnosis (BOM/UTF-8/GBK/UTF-16 + confidence) and repair (→ UTF-8 without BOM, automatic `.windowsguard.bak` backup); `dryRun` diagnoses without writing; when the encoding cannot be determined (e.g. a BOM is present but the body is not valid UTF-8) it returns a clear error instead of crashing |
 
 > History: the original pwsh-guard L1 system-prompt section is **no longer
 > injected** — it has been replaced by the guideline skills above (loaded on
@@ -108,7 +108,9 @@ npm install
 - when `pwsh` tool output contains mojibake (`鈥?`/`鎻掍欢`/`锟斤拷`), a
   `[windows-guard]` fix hint is appended to the end of the result;
 - dangerous write commands such as `Set-Content`/`Add-Content`/`Out-File`
-  writing JSON/YAML/TOML without `-Encoding` are denied outright, with the
+  writing JSON/YAML/TOML without `-Encoding` are denied outright; `>`
+  redirection into structured files (including mid-command `> file.json`)
+  is intercepted too, with the
   correct `[System.IO.File]::WriteAllText(...)` form attached;
 - the tool list gains `windows_encode_detect` / `windows_encode_fix`
   (encoding diagnosis and repair);

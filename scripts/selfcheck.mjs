@@ -26,11 +26,11 @@ function t(name, fn) {
 }
 
 // ---- package 完整性 ----
-t('package.json name/main/patch 一致', () => {
+t('package.json name/main/patch 一致 + 版本号合法', () => {
   assert.equal(pkg.name, 'dsh-plugin-windows-guard')
   assert.equal(pkg.main, 'lib/index.js')
   assert.ok(pkg.dsh?.bundle?.patch, '应有 bundle patch')
-  assert.equal(pkg.version, '0.2.0', '版本应为 0.2.0')
+  assert.ok(typeof pkg.version === 'string' && /^\d+\.\d+\.\d+$/.test(pkg.version), `版本号应为非空 semver：${pkg.version}`)
 })
 
 // ---- 技能文件：拆分后的两个技能 ----

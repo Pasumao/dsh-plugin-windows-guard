@@ -49,8 +49,8 @@ DeepSeek Harness (dsh) 的 **Windows 环境防坑插件**——**源自 255 个�
 | 层 | 机制 | 作用 |
 |---|---|---|
 | L2 | `tools/post-execute` 监听 | `pwsh` 工具结果出现 GBK 误解码/FFFD 洪水/中文变问号时，自动在结果后附加 `[windows-guard]` 修复提示（不中断、不改写结果本体） |
-| L3 | `tools/pre-execute` 监听 | 拦截「不带 -Encoding 的 `Set-Content`/`Add-Content`/`Out-File` 写 JSON/YAML/TOML/GD」与「`>` 重定向写结构化文件」命令，deny 并给出 `[System.IO.File]::WriteAllText(...)` 正确写法 |
-| L4 | `windows_encode_detect` / `windows_encode_fix` 工具 | 文件编码诊断（BOM/UTF-8/GBK/UTF-16 + 置信度）与修复（→ UTF-8 无 BOM，自动备份 `.windowsguard.bak`）；`dryRun` 只诊断不写入 |
+| L3 | `tools/pre-execute` 监听 | 拦截「不带 -Encoding 的 `Set-Content`/`Add-Content`/`Out-File` 写 JSON/YAML/TOML」与「`>` 重定向写结构化文件」（含命令中部 `> file.json` 等锚点位置），deny 并给出 `[System.IO.File]::WriteAllText(...)` 正确写法 |
+| L4 | `windows_encode_detect` / `windows_encode_fix` 工具 | 文件编码诊断（BOM/UTF-8/GBK/UTF-16 + 置信度）与修复（→ UTF-8 无 BOM，自动备份 `.windowsguard.bak`）；`dryRun` 只诊断不写入；无法判定编码（如 BOM 存在但主体非合法 UTF-8）时返回明确错误而非报错崩溃 |
 
 > 历史：原 pwsh-guard 的 L1 系统提示词段**不再注入**——由上面的守则技能取代
 > （按需加载、更省常驻 token）。
@@ -100,7 +100,8 @@ npm install
 - `pwsh` 工具输出出现乱码（`鈥?`/`鎻掍欢`/`锟斤拷`）时，结果末尾自动附加
   `[windows-guard]` 修复提示；
 - 不带 `-Encoding` 的 `Set-Content`/`Add-Content`/`Out-File` 写 JSON/YAML/TOML
-  等危险写命令被直接拦截（deny），并附 `[System.IO.File]::WriteAllText(...)`
+  等危险写命令被直接拦截（deny），`>` 重定向写结构化文件（含命令中部的
+  `> file.json`）同样拦截，并附 `[System.IO.File]::WriteAllText(...)`
   正确写法；
 - 工具列表多出 `windows_encode_detect` / `windows_encode_fix`（编码诊断与修复）；
 - 技能目录多出 `windows-enc` / `windows-sys` 两个防坑守则技能。
@@ -161,7 +162,6 @@ npm install
 | [dsh-plugin-image-tools](https://www.npmjs.com/package/dsh-plugin-image-tools) | [GitHub 仓库](https://github.com/Pasumao/dsh-plugin-image-tools) | 图片选择卡 + 回复内嵌图片 + 盲模型收图 |
 | [dsh-plugin-table-zoom](https://www.npmjs.com/package/dsh-plugin-table-zoom) | [GitHub 仓库](https://github.com/Pasumao/dsh-plugin-table-zoom) | 聊天长表格浮窗查看 + 一键复制 Markdown |
 | [dsh-plugin-workbench](https://www.npmjs.com/package/dsh-plugin-workbench) | [GitHub 仓库](https://github.com/Pasumao/dsh-plugin-workbench) | VS Code 风格文件浏览器 + 可编辑预览 |
-
 | [dsh-plugin-context-trim](https://www.npmjs.com/package/dsh-plugin-context-trim) | [GitHub 仓库](https://github.com/Pasumao/dsh-plugin-context-trim) | 会话注入门控：skill / tool / 提示词段落按会话裁剪 |
 > 本系列其余插件见 [Pasumao · dsh 插件](https://github.com/Pasumao)；觉得好用欢迎到 GitHub 点 ⭐。
 
