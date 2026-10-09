@@ -115,7 +115,7 @@ t('lib 只能发现拆分的两个技能', async () => {
 // ---- mojibake ----
 t('gbk misread 真实样本', () => {
   assert.equal(detectGbkMisread('鎻掍欢鏋勮瑙勮寖锛堢煡璇嗗簱锛?').misread, true)
-  assert.equal(detectGbkMisread('# restart-dsh.ps1 鈥?DSH web 涓€閿畨鍏ㄩ噸鍚?').misread, true)
+  assert.equal(detectGbkMisread('# check-profile.mjs 鈥?profile 鑷€妫€閫氳繃鍚庨噸鍚?').misread, true)
 })
 t('正常文本不误报', () => {
   assert.equal(detectGbkMisread('插件构建规范，启动故障记录。').misread, false)

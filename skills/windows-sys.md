@@ -28,7 +28,7 @@ whenToUse: 路径/文件系统报错、文件占用、进程管理、端口冲�
 ## 2. 进程与端口（先查后杀）
 
 ```powershell
-# 查端口占用（3080 = dsh web，39090 = launcher 启动页）
+# 查端口占用（3080 = dsh web）
 netstat -ano | findstr :3080
 
 # 查进程
@@ -42,7 +42,7 @@ taskkill /F /PID 12345
 
 - 杀进程**前先确认** PID（任务名/命令行参数核对），Windows 上杀错进程没有
   UNDO；残留孤儿进程是「端口被占/文件被锁」的头号原因。
-- `dsh` 相关：后端是 node；launcher 是 DshLauncher.exe。改 profile 后先
+- `dsh` 相关：后端是 node。改 profile 后先
   `node D:\dsh\scripts\check-profile.mjs` 自检再重启。
 
 ## 3. 跨平台与杂项
